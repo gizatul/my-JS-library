@@ -24,30 +24,50 @@ $.prototype.animateOverTime = function(dur, cb, fin) { //dur -duration длит�
   return _animateOverTime;
 };
 
-$.prototype.fadeIn = function(dur, displ, fin) {
-  for (let i = 0; i < this.length; i++) {
-    this[i].style.display = displ || 'block'; //по умол значение 'block'
+$.prototype.show = function(dur, displ, fin, i) {
+  this[i].style.display = displ || 'block'; //по умол значение 'block'
     const _fadeIn = (complection) => {
       this[i].style.opacity = complection; //opacity принимает значение complection, рассчитанное выше (от 0 до 1)
     };
 
     const ani = this.animateOverTime(dur, _fadeIn, fin);
     requestAnimationFrame(ani); //запуск воспроизведения анимации
+};
+
+$.prototype.hide = function(dur, fin, i) {
+  const _fadeOut = (complection) => {
+    this[i].style.opacity = 1 - complection; //opacity принимает значение complection, рассчитанное выше (от 0 до 1)
+    if (complection === 1) {
+      this[i].style.display = 'none'; //если элемент полностью стал прозрачным, то мы его скрываем со страницы
+    }
+  };
+
+  const ani = this.animateOverTime(dur, _fadeOut, fin);
+  requestAnimationFrame(ani); //запуск воспроизведения анимации
+}
+
+$.prototype.fadeIn = function(dur, displ, fin) {
+  for (let i = 0; i < this.length; i++) {
+    this.show(dur, displ, fin, i);
   }
   return this;
 };
 
 $.prototype.fadeOut = function(dur, fin) {
   for (let i = 0; i < this.length; i++) {
-    const _fadeOut = (complection) => {
-      this[i].style.opacity = 1 - complection; //opacity принимает значение complection, рассчитанное выше (от 0 до 1)
-      if (complection === 1) {
-        this[i].style.display = 'none'; //если элемент полностью стал прозрачным, то мы его скрываем со страницы
-      }
-    };
-
-    const ani = this.animateOverTime(dur, _fadeOut, fin);
-    requestAnimationFrame(ani); //запуск воспроизведения анимации
+    this.hide(dur, fin, i);
   }
   return this;
 };
+
+$.prototype.fadeToggle = function (dur, displ, fin) {
+  for (let i = 0; i < this.length; i++) {
+    if (window.getComputedStyle(this[i]).display === 'none') { //если у элемента св-во none
+      this.show(dur, displ, fin, i); //то показываем
+    } else {
+      this.hide(dur, fin, i); //иначе скрываем
+    }
+  }
+  return this;
+};
+  

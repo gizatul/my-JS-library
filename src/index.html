@@ -13,13 +13,62 @@
     <button class="btn btn-dark m20" data-count="second">Fade out second text</button>
     <button class="btn btn-success m20">Fade out all text</button>
 
-    <div class="w-500 block-center mt-20">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni corporis deserunt perspiciatis ratione, ad ab, dicta quae unde voluptas repudiandae ea rem obcaecati vitae aliquid non sunt reprehenderit dolores officia.Voluptatibus officiis architecto nobis odio eveniet. Corrupti error nostrum excepturi, voluptatem sapiente autem, quos illum voluptate, sed itaque porro laudantium. Optio, inventore! Ab cumque nulla in odit fuga natus iusto !Delectus tenetur obcaecati inventore tempore fuga, corporis, blanditiis sequi nihil ullam sunt reprehenderit iusto? Quae quis tenetur repellendus consequuntur reprehenderit porro rerum, suscipit quia modi veniam magnam numquam aliquid consectetur! Quasi nostrum nulla repudiandae recusandae id, soluta rerum possimus nobis atque at aliquid distinctio? Impedit, porro aperiam optio, nulla id animi adipisci dolore a architecto alias, nostrum autem perspiciatis maxime! Architecto maxime perspiciatis ipsa consequuntur molestiae sint eius hic, vitae magnam debitis delectus illum qui aperiam natus in officia cum quaerat excepturi quia nemo est sunt. Eius velit dicta nisi.
+    <!-- Dropdown menu -->
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton">Dropdown button</button>
+        <div class="dropdown-menu" data-toggle-id="dropdownMenuButton"> <!-- data-toggle-id="dropdownMenuButton" указываем для связки с триггером (Dropdown button)-->
+            <a href="#" class="dropdown-item">Action</a>
+            <a href="#" class="dropdown-item">Action #2</a>
+            <a href="#" class="dropdown-item">Action #3</a>
+        </div>
     </div>
-    <div class="w-500 block-center mt-20">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni corporis deserunt perspiciatis ratione, ad ab, dicta quae unde voluptas repudiandae ea rem obcaecati vitae aliquid non sunt reprehenderit dolores officia.Voluptatibus officiis architecto nobis odio eveniet. Corrupti error nostrum excepturi, voluptatem sapiente autem, quos illum voluptate, sed itaque porro laudantium. Optio, inventore! Ab cumque nulla in odit fuga natus iusto !Delectus tenetur obcaecati inventore tempore fuga, corporis, blanditiis sequi nihil ullam sunt reprehenderit iusto? Quae quis tenetur repellendus consequuntur reprehenderit porro rerum, suscipit quia modi veniam magnam numquam aliquid consectetur! Quasi nostrum nulla repudiandae recusandae id, soluta rerum possimus nobis atque at aliquid distinctio? Impedit, porro aperiam optio, nulla id animi adipisci dolore a architecto alias, nostrum autem perspiciatis maxime! Architecto maxime perspiciatis ipsa consequuntur molestiae sint eius hic, vitae magnam debitis delectus illum qui aperiam natus in officia cum quaerat excepturi quia nemo est sunt. Eius velit dicta nisi.
+
+    <!-- Card -->
+
+    <div class="goods d-flex f-space-around">
+        <div class="card">
+            <img class="card-img" src="https://cdn4.tropicalsky.co.uk/images/800x600/on-the-beach-in-phu-quoc-vietnam.jpg" alt="photo">
+            <div class="card-body">
+                <div class="card-title">Card title</div>
+                <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quidem aperiam consectetur consequuntur repellendus temporibus repudiandae excepturi quas eos voluptas necessitatibus numquam, iusto ut exercitationem beatae eveniet! Sint, nostrum exercitationem.</p>
+                <a href="#" class="btn btn-primary">Link to</a>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img" src="https://cdn4.tropicalsky.co.uk/images/800x600/on-the-beach-in-phu-quoc-vietnam.jpg" alt="photo">
+            <div class="card-body">
+                <div class="card-title">Card title</div>
+                <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quidem aperiam consectetur consequuntur repellendus temporibus repudiandae excepturi quas eos voluptas necessitatibus numquam, iusto ut exercitationem beatae eveniet! Sint, nostrum exercitationem.</p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Link to</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+
+    <div class="modal" id="exampleModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button class="close" data-close>
+                    <span>&times;</span>
+                </button>
+                <div class="modal-header">
+                    <div class="modal-title">
+                        Modal title
+                    </div>
+                </div>
+                <div class="modal-body">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos corrupti voluptate mollitia ducimus aut molestiae maiores accusamus sint exercitationem ipsa dolore eaque error dicta unde repudiandae ratione doloremque, voluptas libero?
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" data-close>Close</button>
+                    <button class="btn btn-success">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 
 
     <script src='script.js'></script>

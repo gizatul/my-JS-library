@@ -86,6 +86,67 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/js/lib/components/dropdown.js":
+/*!*******************************************!*\
+  !*** ./src/js/lib/components/dropdown.js ***!
+  \*******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.dropdown = function () {
+  for (let i = 0; i < this.length; i++) {
+    const id = this[i].getAttribute('id');
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(() => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(`[data-toggle-id="${id}"]`).fadeToggle(300);
+    });
+  }
+};
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.dropdown-toggle').dropdown();
+
+/***/ }),
+
+/***/ "./src/js/lib/components/modal.js":
+/*!****************************************!*\
+  !*** ./src/js/lib/components/modal.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function () {
+  for (let i = 0; i < this.length; i++) {
+    const target = this[i].getAttribute('data-target');
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(e => {
+      e.preventDefault();
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeIn(500);
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  const closeElements = document.querySelectorAll('[data-close]');
+  closeElements.forEach(elem => {
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(elem).click(() => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').fadeOut(500);
+      document.body.style.overflow = '';
+    });
+  });
+  Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').click(e => {
+    if (e.target.classList.contains('modal')) {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').fadeOut(500);
+      document.body.style.overflow = '';
+    }
+  });
+};
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-toggle="modal"]').modal();
+
+/***/ }),
+
 /***/ "./src/js/lib/core.js":
 /*!****************************!*\
   !*** ./src/js/lib/core.js ***!
@@ -140,8 +201,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_attributes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/attributes */ "./src/js/lib/modules/attributes.js");
 /* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
 /* harmony import */ var _modules_effects__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/effects */ "./src/js/lib/modules/effects.js");
+/* harmony import */ var _components_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dropdown */ "./src/js/lib/components/dropdown.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./src/js/lib/components/modal.js");
 
  // будет подвязываться к ф-ии $
+
+
 
 
 
@@ -456,30 +521,48 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.animateOverTime = functi
 
   return _animateOverTime;
 };
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.show = function (dur, displ, fin, i) {
+  this[i].style.display = displ || 'block'; //по умол значение 'block'
+  const _fadeIn = complection => {
+    this[i].style.opacity = complection; //opacity принимает значение complection, рассчитанное выше (от 0 до 1)
+  };
+
+  const ani = this.animateOverTime(dur, _fadeIn, fin);
+  requestAnimationFrame(ani); //запуск воспроизведения анимации
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.hide = function (dur, fin, i) {
+  const _fadeOut = complection => {
+    this[i].style.opacity = 1 - complection; //opacity принимает значение complection, рассчитанное выше (от 0 до 1)
+    if (complection === 1) {
+      this[i].style.display = 'none'; //если элемент полностью стал прозрачным, то мы его скрываем со страницы
+    }
+  };
+
+  const ani = this.animateOverTime(dur, _fadeOut, fin);
+  requestAnimationFrame(ani); //запуск воспроизведения анимации
+};
+
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeIn = function (dur, displ, fin) {
   for (let i = 0; i < this.length; i++) {
-    this[i].style.display = displ || 'block'; //по умол значение 'block'
-    const _fadeIn = complection => {
-      this[i].style.opacity = complection; //opacity принимает значение complection, рассчитанное выше (от 0 до 1)
-    };
-
-    const ani = this.animateOverTime(dur, _fadeIn, fin);
-    requestAnimationFrame(ani); //запуск воспроизведения анимации
+    this.show(dur, displ, fin, i);
   }
-
   return this;
 };
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOut = function (dur, fin) {
   for (let i = 0; i < this.length; i++) {
-    const _fadeOut = complection => {
-      this[i].style.opacity = 1 - complection; //opacity принимает значение complection, рассчитанное выше (от 0 до 1)
-      if (complection === 1) {
-        this[i].style.display = 'none'; //если элемент полностью стал прозрачным, то мы его скрываем со страницы
-      }
-    };
-
-    const ani = this.animateOverTime(dur, _fadeOut, fin);
-    requestAnimationFrame(ani); //запуск воспроизведения анимации
+    this.hide(dur, fin, i);
+  }
+  return this;
+};
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeToggle = function (dur, displ, fin) {
+  for (let i = 0; i < this.length; i++) {
+    if (window.getComputedStyle(this[i]).display === 'none') {
+      //если у элемента св-во none
+      this.show(dur, displ, fin, i); //то показываем
+    } else {
+      this.hide(dur, fin, i); //иначе скрываем
+    }
   }
 
   return this;
@@ -545,13 +628,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
 
 Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('#first').on('click', () => {
-  Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('div').eq(1).fadeOut(800);
+  Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('div').eq(1).fadeToggle(800);
 });
 Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-count="second"]').on('click', () => {
   Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('div').eq(2).fadeOut(1000);
 });
 Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('button').eq(2).on('click', () => {
-  Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('.w-500').fadeOut(3000);
+  Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('.w-500').fadeToggle(1000);
 });
 
 /***/ })

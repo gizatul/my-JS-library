@@ -5,6 +5,8 @@ import './modules/handlers';
 import './modules/attributes';
 import './modules/actions';
 import './modules/effects';
+import './components/dropdown';
+import './components/modal';
 
 export default $; //экспорт ф-ии $, кот-я насыщена различными функциональностями описанными выше
 //lib.js файл экспортов для объединения всего где мы собираем библиотеку
