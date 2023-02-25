@@ -86,6 +86,37 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/js/lib/components/accordion.js":
+/*!********************************************!*\
+  !*** ./src/js/lib/components/accordion.js ***!
+  \********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.accordion = function () {
+  let headActive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'accordion-head--active';
+  let contentActive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'accordion-content--active';
+  let paddings = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 40;
+  for (let i = 0; i < this.length; i++) {
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(() => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).toggleClass(headActive);
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].nextElementSibling).toggleClass(contentActive);
+      if (this[i].classList.contains(headActive)) {
+        this[i].nextElementSibling.style.maxHeight = this[i].nextElementSibling.scrollHeight + paddings + "px";
+      } else {
+        this[i].nextElementSibling.style.maxHeight = "0px";
+      }
+    });
+  }
+};
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.accordion-head').accordion();
+
+/***/ }),
+
 /***/ "./src/js/lib/components/dropdown.js":
 /*!*******************************************!*\
   !*** ./src/js/lib/components/dropdown.js ***!
@@ -120,30 +151,145 @@ Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.dropdown-toggle').dropdo
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
 
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function () {
+let calcScroll = function () {
+  let div = document.createElement('div');
+  div.style.width = '50px';
+  div.style.height = '50px';
+  div.style.overflowY = 'scroll';
+  div.style.visibility = 'hidden';
+  document.body.appendChild(div);
+  let scrollWidth = div.offsetWidth - div.clientWidth;
+  div.remove();
+  return scrollWidth;
+};
+let scroll = calcScroll();
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function (created) {
+  //аргумент created отвечает создано ли модал окно программно(с помощью скрипта)
   for (let i = 0; i < this.length; i++) {
     const target = this[i].getAttribute('data-target');
     Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(e => {
       e.preventDefault();
       Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeIn(500);
       document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = `${scroll}px`;
+    });
+    const closeElements = document.querySelectorAll(`${target} [data-close]`); //target - уникальный идентификатор окна
+    closeElements.forEach(elem => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(elem).click(() => {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeOut(500); //target - закрываем то самое окно, которое открыто
+        document.body.style.overflow = '';
+        document.body.style.marginRight = ``;
+        if (created) {
+          //если модал окно создано программно
+          document.querySelector(target).remove(); //то окно удаляем со страницы
+        }
+      });
+    });
+
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).click(e => {
+      if (e.target.classList.contains('modal')) {
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeOut(500);
+        setTimeout(() => {
+          document.body.style.overflow = '';
+          document.body.style.marginRight = ``;
+          if (created) {
+            document.querySelector(target).remove();
+          }
+        }, 500);
+      }
     });
   }
-  const closeElements = document.querySelectorAll('[data-close]');
-  closeElements.forEach(elem => {
-    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(elem).click(() => {
-      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').fadeOut(500);
-      document.body.style.overflow = '';
-    });
-  });
-  Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').click(e => {
-    if (e.target.classList.contains('modal')) {
-      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').fadeOut(500);
-      document.body.style.overflow = '';
-    }
-  });
 };
 Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-toggle="modal"]').modal();
+
+//Динамическое создание модал окон
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.createModal = function () {
+  let {
+    text,
+    btns
+  } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  //передаем объект настроек
+  for (let i = 0; i < this.length; i++) {
+    //цикл, чтобы пройтись по всем элементам
+    let modal = document.createElement('div'); //создаем модалку
+    modal.classList.add('modal');
+    modal.setAttribute('id', this[i].getAttribute('data-target').slice(1)); //ставим атрибут такой же как и на вызывающей его кнопке
+
+    // btns ={count: num, settings: [[text, classNames=[], close, cb]]} //close -закрывающая ли кнопка
+    const buttons = []; //здесь будут храгится html-ноды
+    for (let j = 0; j < btns.count; j++) {
+      //count - пользовательское св-во, указывающее кол-во кнопок
+      let btn = document.createElement('button'); //создание кнопки
+
+      btn.classList.add('btn', ...btns.settings[j][1]); //добавление классов для стилизации
+      btn.textContent = btns.settings[j][0]; //помещение текста
+      if (btns.settings[j][2]) {
+        btn.setAttribute('data-close', 'true'); // проверка на close и установка атрибута
+      }
+
+      if (btns.settings[j][3] && typeof btns.settings[j][3] === 'function') {
+        btn.addEventListener('click', btns.settings[j][3]); //проверка на ф-ю и создание ОС
+      }
+
+      buttons.push(btn); //внедряем результат в массив с кнопками
+    }
+
+    modal.innerHTML = `
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <button class="close" data-close>
+              <span>&times;</span>
+          </button>
+          <div class="modal-header">
+              <div class="modal-title">
+                  ${text.title}
+              </div>
+          </div>
+          <div class="modal-body">
+              ${text.body}
+          </div>
+          <div class="modal-footer">
+
+          </div>
+      </div>
+    </div>`; //внутренности модалки
+    modal.querySelector('.modal-footer').append(...buttons); //размещаем кнопки
+    document.body.appendChild(modal); //размещаем модал окно на страницу
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).modal(true); //подвязываем нужный триггер к модал окно
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].getAttribute('data-target')).fadeIn(500); //появление нужного окна
+  }
+};
+
+// есть вариант разворачивания массива кнопок в HTML-строки, но при этом и callback-ф-я превратится в строку и не будет работать, поэтому такой вариант отметаем и используем метод append
+
+/***/ }),
+
+/***/ "./src/js/lib/components/tab.js":
+/*!**************************************!*\
+  !*** ./src/js/lib/components/tab.js ***!
+  \**************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.tab = function () {
+  for (let i = 0; i < this.length; i++) {
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).on('click', () => {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).addClass('tab-item--active') //добавляем класс активности элементу
+      .siblings().removeClass('tab-item--active') //удаляем класс активности у всех соседей
+      .closest('.tab') //находим родителя tab
+      .find('.tab-content') //внутри родителя ищем элемент tab-content
+      .removeClass('tab-content--active') //удаляем класс активности у всех таб-контентов
+      .eq(Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).index()) // ч/з index находим нужный номер элемента по порядку на котором произошло событие, потом передается в eq
+      .addClass('tab-content--active'); // и добавляем класс актиности нужному tab-контенту
+    });
+  }
+};
+
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-tabpanel] .tab-item').tab();
 
 /***/ }),
 
@@ -203,8 +349,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_effects__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/effects */ "./src/js/lib/modules/effects.js");
 /* harmony import */ var _components_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/dropdown */ "./src/js/lib/components/dropdown.js");
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./src/js/lib/components/modal.js");
+/* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tab */ "./src/js/lib/components/tab.js");
+/* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/accordion */ "./src/js/lib/components/accordion.js");
 
  // будет подвязываться к ф-ии $
+
+
 
 
 
@@ -636,6 +786,32 @@ Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-count="second"]'
 Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('button').eq(2).on('click', () => {
   Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('.w-500').fadeToggle(1000);
 });
+Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('#trigger').click(() => Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('#trigger').createModal({
+  //создание модального окна
+  text: {
+    title: 'Modal title 3',
+    body: 'Обычный большой текст не о чем'
+  },
+  btns: {
+    count: 3,
+    //кол-во кнопок
+    settings: [['Close',
+    //текст кнопки
+    ['btn-danger', 'mr-10'],
+    //классв кнопки
+    true //атрибут закрытия
+    ], ['Save changes',
+    //текст кнопки
+    ['btn-success', 'mr-10'], false,
+    //атрибут закрытия
+    () => {
+      //колбэк-ф-я кнопки
+      alert('Данные сохранены');
+    }], ['Предупредить', ['btn-warning'], false, () => {
+      alert('предупреждение отправлено');
+    }]]
+  }
+}));
 
 /***/ })
 

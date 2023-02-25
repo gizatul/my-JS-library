@@ -8,68 +8,171 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-    <button class="btn btn-primary m20" id="first">Fade out first text</button>
-    <button class="btn btn-dark m20" data-count="second">Fade out second text</button>
-    <button class="btn btn-success m20">Fade out all text</button>
 
-    <!-- Dropdown menu -->
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton">Dropdown button</button>
-        <div class="dropdown-menu" data-toggle-id="dropdownMenuButton"> <!-- data-toggle-id="dropdownMenuButton" указываем для связки с триггером (Dropdown button)-->
-            <a href="#" class="dropdown-item">Action</a>
-            <a href="#" class="dropdown-item">Action #2</a>
-            <a href="#" class="dropdown-item">Action #3</a>
-        </div>
-    </div>
+    <div class="container">
+        <button class="btn btn-primary m20" id="first">Fade out first text</button>
+        <button class="btn btn-dark m20" data-count="second">Fade out second text</button>
+        <button class="btn btn-warning m20">Fade out all texts</button>
 
-    <!-- Card -->
-
-    <div class="goods d-flex f-space-around">
-        <div class="card">
-            <img class="card-img" src="https://cdn4.tropicalsky.co.uk/images/800x600/on-the-beach-in-phu-quoc-vietnam.jpg" alt="photo">
-            <div class="card-body">
-                <div class="card-title">Card title</div>
-                <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quidem aperiam consectetur consequuntur repellendus temporibus repudiandae excepturi quas eos voluptas necessitatibus numquam, iusto ut exercitationem beatae eveniet! Sint, nostrum exercitationem.</p>
-                <a href="#" class="btn btn-primary">Link to</a>
+        <!-- Dropdown menu -->
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton">Dropdown button</button>
+            <div class="dropdown-menu" data-toggle-id="dropdownMenuButton">
+                <a href="#" class="dropdown-item">Action</a>
+                <a href="#" class="dropdown-item">Action #2</a>
+                <a href="#" class="dropdown-item">Action #3</a>
             </div>
         </div>
-        <div class="card">
-            <img class="card-img" src="https://cdn4.tropicalsky.co.uk/images/800x600/on-the-beach-in-phu-quoc-vietnam.jpg" alt="photo">
-            <div class="card-body">
-                <div class="card-title">Card title</div>
-                <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis quidem aperiam consectetur consequuntur repellendus temporibus repudiandae excepturi quas eos voluptas necessitatibus numquam, iusto ut exercitationem beatae eveniet! Sint, nostrum exercitationem.</p>
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Link to</a>
+
+        <!-- Card -->
+
+        <div class="goods d-flex f-space-around">
+            <div class="card">
+                <img class="card-img" src="https://sun9-28.userapi.com/impf/c626126/v626126770/13266/ZjlU7xBrIxc.jpg?size=604x378&quality=96&sign=dedd73638209381fe417c8227aa9e6e0&type=album" alt="photo">
+                <div class="card-body">
+                    <div class="card-title">Card title</div>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia itaque placeat qui suscipit.</p>
+                    <a href="#" id="trigger" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Link to</a>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img" src="https://sun9-28.userapi.com/impf/c626126/v626126770/13266/ZjlU7xBrIxc.jpg?size=604x378&quality=96&sign=dedd73638209381fe417c8227aa9e6e0&type=album" alt="photo">
+                <div class="card-body">
+                    <div class="card-title">Card title #2</div>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia itaque placeat qui suscipit.</p>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">Link to</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal -->
-
-    <div class="modal" id="exampleModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <button class="close" data-close>
-                    <span>&times;</span>
-                </button>
-                <div class="modal-header">
-                    <div class="modal-title">
-                        Modal title
+        <!-- Modal -->
+        <!-- <div class="modal" id="exampleModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button class="close" data-close>
+                        <span>&times;</span>
+                    </button>
+                    <div class="modal-header">
+                        <div class="modal-title">
+                            Modal title
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum minus doloremque nesciunt enim rem quam corporis? Dolorem pariatur magnam distinctio perferendis. Ratione dolorem voluptates iusto facilis odit veritatis, suscipit voluptatibus!
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-close>Close</button>
+                        <button class="btn btn-success">Save changes</button>
                     </div>
                 </div>
-                <div class="modal-body">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos corrupti voluptate mollitia ducimus aut molestiae maiores accusamus sint exercitationem ipsa dolore eaque error dicta unde repudiandae ratione doloremque, voluptas libero?
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" data-close>Close</button>
-                    <button class="btn btn-success">Save changes</button>
+            </div>
+        </div> -->
+
+        <div class="modal" id="exampleModal2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button class="close" data-close>
+                        <span>&times;</span>
+                    </button>
+                    <div class="modal-header">
+                        <div class="modal-title">
+                            Modal title #2
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        Lorem ipsum dolor sit 
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" data-close>Close</button>
+                        <button class="btn btn-success">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-</div>
 
+    <!-- Tabs -->
+    <div class="tab mt-20 block-center">
+        <div class="tab-panel" data-tabpanel>
+            <div class="tab-item tab-item--active">Content 1</div>
+            <div class="tab-item">Content 2</div>
+            <div class="tab-item">Content 3</div>
+            
+            <!-- Dropdown menu -->
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton2">Dropdown button</button>
+                <div class="dropdown-menu" data-toggle-id="dropdownMenuButton2">
+                    <a href="#" class="dropdown-item">Action</a>
+                    <a href="#" class="dropdown-item">Action #2</a>
+                    <a href="#" class="dropdown-item">Action #3</a>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content tab-content--active">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis sed ducimus, similique soluta unde sint molestias, quaerat, ab ut aut architecto! Alias optio minus eos dicta tempore pariatur explicabo omnis.
+            <br><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, doloremque sapiente? Saepe nemo suscipit soluta, magnam deleniti eius! Vero cumque nesciunt quas deserunt maiores excepturi possimus voluptatibus vitae quidem molestiae.
+        </div>
+        <div class="tab-content">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis sed ducimus, similique soluta unde sint molestias, quaerat, ab ut aut architecto! Alias optio minus eos dicta tempore pariatur explicabo omnis.
+            <br><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, doloremque sapiente? Saepe nemo suscipit soluta, magnam deleniti eius! Vero cumque nesciunt quas deserunt maiores excepturi possimus voluptatibus vitae quidem molestiae.
+        </div>
+        <div class="tab-content">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis sed ducimus, similique soluta unde sint molestias, quaerat, ab ut aut architecto! Alias optio minus eos dicta tempore pariatur explicabo omnis.
+            <br><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, doloremque sapiente? Saepe nemo suscipit soluta, mag
+        </div>
+    </div>
+    <!-- Accordion -->
+    <div class="accordion mt-20 block-center">
+        <div class="accordion-head">
+            Collapse first element
+        </div>
+        <div class="accordion-content">
+            <div class="accordion-inner">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non ea mollitia obcaecati voluptate culpa, explicabo, necessitatibus nemo sunt dolore pariatur doloremque sint vitae reprehenderit quaerat ad voluptatem provident? Impedit, nobis!
+            </div>
+        </div>
+        <div class="accordion-head">
+            Collapse second element
+        </div>
+        <div class="accordion-content">
+            <div class="accordion-inner">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non ea mollitia obcaecati voluptate culpa, explicabo, necessitatibus nemo sunt dolore pariatur doloremque sint vitae reprehenderit quaerat ad voluptatem provident? Impedit, nobis!
+            </div>
+        </div>
+    </div>
 
+    <!-- Slider -->
+    <div class="carousel">
+        <ol class="carousel-indicators">
+            <li class="active" data-slide-to="0"></li>
+            <li data-slide-to="1"></li>
+            <li data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-slides">
+                <div class="carousel-item">
+                    <img src="https://img2.goodfon.ru/original/1280x1024/2/15/nebo-oblaka-gory-sneg-derevya-4255.jpg" alt="mountain">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://s.ekabu.ru/localStorage/post/90/6c/70/23/906c7023.jpg" alt="city">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://proprikol.ru/wp-content/uploads/2021/11/fordy-krasivye-kartinki-45.jpg" alt="river">
+                </div>
+            </div>
+        </div>
+        <a href="#" class="carousel-prev" data-slide="prev">
+            <span class="carousel-prev-icon">&lt;</span>
+        </a>
+        <a href="#" class="carousel-next" data-slide="next">
+            <span class="carousel-next-icon">&gt;</span>
+        </a>
+
+    </div>
 
     <script src='script.js'></script>
 </body>

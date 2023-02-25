@@ -12,3 +12,36 @@ $('[data-count="second"]').on('click', () => {
 $('button').eq(2).on('click', () => {
   $('.w-500').fadeToggle(1000);
 }); 
+
+$('#trigger').click(() => $('#trigger').createModal({ //создание модального окна
+  text: {
+    title: 'Modal title 3',
+    body: 'Обычный большой текст не о чем',
+  },
+  btns: {
+    count: 3, //кол-во кнопок
+    settings: [
+      [
+        'Close', //текст кнопки
+        ['btn-danger', 'mr-10'], //классв кнопки
+        true, //атрибут закрытия
+      ],
+      [
+        'Save changes', //текст кнопки
+        ['btn-success', 'mr-10'], 
+        false, //атрибут закрытия
+        () => { //колбэк-ф-я кнопки
+          alert('Данные сохранены');
+        },
+      ],
+      [
+        'Предупредить',
+        ['btn-warning'],
+        false,
+        () => {
+          alert('предупреждение отправлено');
+        }
+      ]
+    ]
+  }
+}));
