@@ -117,6 +117,87 @@ Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.accordion-head').accordi
 
 /***/ }),
 
+/***/ "./src/js/lib/components/carousel.js":
+/*!*******************************************!*\
+  !*** ./src/js/lib/components/carousel.js ***!
+  \*******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.carousel = function () {
+  for (let i = 0; i < this.length; i++) {
+    const width = window.getComputedStyle(this[i].querySelector('.carousel-inner')).width; //получаем ширину у общего блока с слайдами
+    const slides = this[i].querySelectorAll('.carousel-item');
+    const slidesField = this[i].querySelector('.carousel-slides');
+    const dots = this[i].querySelectorAll('.carousel-indicators li');
+    slidesField.style.width = 100 * slides.length + '%'; //установка обертке carousel-slides ширины в зависимоcти от кол-ва слайдов(slides.length)
+    slides.forEach(slide => {
+      slide.style.width = width; //каждому слайдеру присваиваем нужную ширину
+    });
+
+    let offset = 0; //для отслеживания какой слайд сейчас активен и насколько смещать блок
+    let slideIndex = 0;
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].querySelector('[data-slide="next"]')).click(e => {
+      e.preventDefault();
+      if (offset == +width.replace(/\D/g, '') * (slides.length - 1)) {
+        //если дошли до конца полной ширины блока //ширина каждого отдельного слайда умноженная на кол-во сладов 
+        offset = 0; //то возвращаем слайд на начало
+      } else {
+        offset += +width.replace(/\D/g, ''); //пока не дошли до конца к offset добавляем ширину каждого отд слайда
+      }
+
+      slidesField.style.transform = `translateX(-${offset}px)`; //при клике блок будет смещаться влево
+      //Ф-я для точек
+      if (slideIndex == slides.length - 1) {
+        slideIndex = 0;
+      } else {
+        slideIndex++;
+      }
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[slideIndex].classList.add('active');
+    });
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].querySelector('[data-slide="prev"]')).click(e => {
+      e.preventDefault();
+      if (offset == 0) {
+        //если дошли до конца полной ширины блока //ширина каждого отдельного слайда умноженная на кол-во сладов 
+        offset = +width.replace(/\D/g, '') * (slides.length - 1); //то возвращаем слайд на начало
+      } else {
+        offset -= +width.replace(/\D/g, ''); //пока не дошли до конца к offset добавляем ширину каждого отд слайда
+      }
+
+      slidesField.style.transform = `translateX(-${offset}px)`; //при клике блок будет смещаться влево
+      //Ф-я для точек
+      if (slideIndex == 0) {
+        slideIndex = slides.length - 1;
+      } else {
+        slideIndex--;
+      }
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[slideIndex].classList.add('active');
+    });
+    //Ф-я создания ссылки на точки
+    const sliderId = this[i].getAttribute('id');
+    Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(`#${sliderId} .carousel-indicators li`).click(e => {
+      const slideTo = e.target.getAttribute('data-slide-to'); //дергаем значение атрибута
+
+      slideIndex = slideTo;
+      offset = +width.replace(/\D/g, '') * slideTo;
+      slidesField.style.transform = `translateX(-${offset}px)`;
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[slideIndex].classList.add('active');
+    });
+  }
+};
+Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.carousel').carousel();
+
+//this[i] - это общий блок слайдера
+
+/***/ }),
+
 /***/ "./src/js/lib/components/dropdown.js":
 /*!*******************************************!*\
   !*** ./src/js/lib/components/dropdown.js ***!
@@ -351,8 +432,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./src/js/lib/components/modal.js");
 /* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tab */ "./src/js/lib/components/tab.js");
 /* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/accordion */ "./src/js/lib/components/accordion.js");
+/* harmony import */ var _components_carousel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/carousel */ "./src/js/lib/components/carousel.js");
 
  // будет подвязываться к ф-ии $
+
 
 
 
