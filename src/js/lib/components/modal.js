@@ -15,7 +15,7 @@ let calcScroll = function() {
 }
 let scroll = calcScroll();
 
-$.prototype.modal = function(created) {   //аргумент created отвечает создано ли модал окно программно(с помощью скрипта)
+$.prototype.modal = function(created) {   
   for (let i = 0; i < this.length; i++) {
     const target = this[i].getAttribute('data-target');
     $(this[i]).click((e) => {
@@ -25,15 +25,15 @@ $.prototype.modal = function(created) {   //аргумент created отвеч�
       document.body.style.marginRight = `${scroll}px`;
     });
 
-    const closeElements = document.querySelectorAll(`${target} [data-close]`); //target - уникальный идентификатор окна
+    const closeElements = document.querySelectorAll(`${target} [data-close]`); 
     closeElements.forEach(elem => {
       $(elem).click(() => {
-        $(target).fadeOut(500); //target - закрываем то самое окно, которое открыто
+        $(target).fadeOut(500); 
         setTimeout(() => {
           document.body.style.overflow = '';
           document.body.style.marginRight = '';
-          if (created) { //если модал окно создано программно
-            document.querySelector(target).remove(); //то окно удаляем со страницы
+          if (created) { 
+            document.querySelector(target).remove(); 
           }
         }, 500);
       });
@@ -56,26 +56,25 @@ $.prototype.modal = function(created) {   //аргумент created отвеч�
 
 $('[data-toggle="modal"]').modal();
 
-//Динамическое создание модал окон
-$.prototype.createModal = function({text, btns} = {}) { //передаем объект настроек
-  for (let i = 0; i < this.length; i++) { //цикл, чтобы пройтись по всем элементам
-    let modal = document.createElement('div'); //создаем модалку
+
+$.prototype.createModal = function({text, btns} = {}) { 
+  for (let i = 0; i < this.length; i++) { 
+    let modal = document.createElement('div'); 
     modal.classList.add('modal');
-    modal.setAttribute('id', this[i].getAttribute('data-target').slice(1)); //ставим атрибут такой же как и на вызывающей его кнопке
+    modal.setAttribute('id', this[i].getAttribute('data-target').slice(1)); 
     
-    // btns ={count: num, settings: [[text, classNames=[], close, cb]]} //close -закрывающая ли кнопка
-    const buttons = []; //здесь будут храгится html-ноды
-    for (let j = 0; j < btns.count; j++) { //count - пользовательское св-во, указывающее кол-во кнопок
-      let btn = document.createElement('button'); //создание кнопки
-      btn.classList.add('btn', ...btns.settings[j][1]); //добавление классов для стилизации
-      btn.textContent = btns.settings[j][0]; //помещение текста
+    const buttons = []; 
+    for (let j = 0; j < btns.count; j++) { 
+      let btn = document.createElement('button'); 
+      btn.classList.add('btn', ...btns.settings[j][1]); 
+      btn.textContent = btns.settings[j][0]; 
       if (btns.settings[j][2]) {
-        btn.setAttribute('data-close', 'true'); // проверка на close и установка атрибута
+        btn.setAttribute('data-close', 'true'); 
       }
       if (btns.settings[j][3] && typeof(btns.settings[j][3]) === 'function') {
-        btn.addEventListener('click', btns.settings[j][3]); //проверка на ф-ю и создание ОС
+        btn.addEventListener('click', btns.settings[j][3]); 
       }
-      buttons.push(btn); //внедряем результат в массив с кнопками
+      buttons.push(btn); 
     }
 
     modal.innerHTML = `
@@ -96,12 +95,11 @@ $.prototype.createModal = function({text, btns} = {}) { //передаем об�
 
           </div>
       </div>
-    </div>`; //внутренности модалки
-    modal.querySelector('.modal-footer').append(...buttons); //размещаем кнопки
-    document.body.appendChild(modal); //размещаем модал окно на страницу
-    $(this[i]).modal(true); //подвязываем нужный триггер к модал окно
-    $(this[i].getAttribute('data-target')).fadeIn(500);  //появление нужного окна
+    </div>`; 
+    modal.querySelector('.modal-footer').append(...buttons); 
+    document.body.appendChild(modal); 
+    $(this[i]).modal(true); 
+    $(this[i].getAttribute('data-target')).fadeIn(500);  
   }
 };
 
-// есть вариант разворачивания массива кнопок в HTML-строки, но при этом и callback-ф-я превратится в строку и не будет работать, поэтому такой вариант отметаем и используем метод append

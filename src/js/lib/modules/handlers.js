@@ -1,7 +1,7 @@
-import $ from "../core"; //импорт главной ф-ии
+import $ from "../core"; 
 
 $.prototype.on = function (eventName, callback) {
-  if (!eventName || !callback) { //если не переданы аргументы, то просто возвращаем объект this
+  if (!eventName || !callback) { 
     return this;
   }
   for (let i = 0; i < this.length; i++) {
@@ -11,7 +11,7 @@ $.prototype.on = function (eventName, callback) {
 }
 
 $.prototype.off = function (eventName, callback) {
-  if (!eventName || !callback) { //если не переданы аргументы, то просто возвращаем объект this
+  if (!eventName || !callback) { 
     return this;
   }
   for (let i = 0; i < this.length; i++) {
@@ -23,9 +23,9 @@ $.prototype.off = function (eventName, callback) {
 $.prototype.click = function (handler) {
   for (let i = 0; i < this.length; i++) {
     if (handler) {
-      this[i].addEventListener('click', handler); //если передали ф-ю в аргумент
+      this[i].addEventListener('click', handler); 
     } else {
-      this[i].click(); //иначе (если не передали) просто автоклик
+      this[i].click(); 
     }
   }
   return this;
