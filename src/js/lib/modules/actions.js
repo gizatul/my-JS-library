@@ -43,7 +43,6 @@ $.prototype.find = function(selector) {
   let counter = 0; //кол-во записанных элементов
 
   const copyObj = Object.assign({}, this); //неглубоко копируем наш объект this
-
   for (let i = 0; i < copyObj.length; i++) {
     const arr = copyObj[i].querySelectorAll(selector); //вычленяем нужные нам селекторы из каждого(i) элемента скопированного объекта copyObj
     if (arr.length == 0) { //Если ни одного элемента не найдено
@@ -90,7 +89,6 @@ $.prototype.siblings = function() {
   let counter = 0; //кол-во записанных элементов
 
   const copyObj = Object.assign({}, this); //неглубоко копируем наш объект this
-
   for (let i = 0; i < copyObj.length; i++) {
     const arr = copyObj[i].parentNode.children; //вытаскиваем всех детей родителя текущего элемента
 

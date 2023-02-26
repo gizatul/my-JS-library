@@ -2,6 +2,7 @@ import $ from "../core";
 
 let calcScroll = function() {
   let div = document.createElement('div'); 
+
   div.style.width = '50px'; 
   div.style.height = '50px'; 
   div.style.overflowY = 'scroll'; 
@@ -28,11 +29,13 @@ $.prototype.modal = function(created) {   //аргумент created отвеч�
     closeElements.forEach(elem => {
       $(elem).click(() => {
         $(target).fadeOut(500); //target - закрываем то самое окно, которое открыто
-        document.body.style.overflow = '';
-        document.body.style.marginRight = ``;
-        if (created) { //если модал окно создано программно
-          document.querySelector(target).remove(); //то окно удаляем со страницы
-        }
+        setTimeout(() => {
+          document.body.style.overflow = '';
+          document.body.style.marginRight = '';
+          if (created) { //если модал окно создано программно
+            document.querySelector(target).remove(); //то окно удаляем со страницы
+          }
+        }, 500);
       });
     });
 
@@ -40,11 +43,11 @@ $.prototype.modal = function(created) {   //аргумент created отвеч�
       if (e.target.classList.contains('modal')) {
         $(target).fadeOut(500);
         setTimeout (() => {
-          document.body.style.overflow = '';
-          document.body.style.marginRight = ``;
           if (created) { 
             document.querySelector(target).remove();
           }
+          document.body.style.overflow = '';
+          document.body.style.marginRight = ``;
         }, 500);
       }
     });
@@ -64,7 +67,6 @@ $.prototype.createModal = function({text, btns} = {}) { //передаем об�
     const buttons = []; //здесь будут храгится html-ноды
     for (let j = 0; j < btns.count; j++) { //count - пользовательское св-во, указывающее кол-во кнопок
       let btn = document.createElement('button'); //создание кнопки
-
       btn.classList.add('btn', ...btns.settings[j][1]); //добавление классов для стилизации
       btn.textContent = btns.settings[j][0]; //помещение текста
       if (btns.settings[j][2]) {

@@ -6,7 +6,6 @@ $.prototype.get = async function(url, dataTypeAnswer = 'json') {
   if (!res.ok) { 
     throw new Error(`Could not fetch ${url}, status: ${res.status}`); 
   }
-
   switch (dataTypeAnswer) { //возврат данных от сервера
     case 'json':
       return await res.json();
@@ -21,7 +20,7 @@ $.prototype.post = async function(url, data, dataTypeAnswer = 'text') {
   let res = await fetch(url, { 
     method: 'POST',
     body: data,
-});
+  });
   switch (dataTypeAnswer) { //возврат данных от сервера
     case 'json':
       return await res.json();

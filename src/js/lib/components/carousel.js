@@ -2,10 +2,10 @@ import $ from "../core";
 
 $.prototype.carousel = function() {
   for (let i = 0; i < this.length; i++) {
-    const width = window.getComputedStyle(this[i].querySelector('.carousel-inner')).width; //получаем ширину у общего блока с слайдами
-    const slides = this[i].querySelectorAll('.carousel-item');
-    const slidesField = this[i].querySelector('.carousel-slides');
-    const dots = this[i].querySelectorAll('.carousel-indicators li');
+    const width = window.getComputedStyle(this[i].querySelector('.carousel-inner')).width, //получаем ширину у общего блока с слайдами
+      slides = this[i].querySelectorAll('.carousel-item'),
+      slidesField = this[i].querySelector('.carousel-slides'),
+      dots = this[i].querySelectorAll('.carousel-indicators li');
 
     slidesField.style.width = 100 * slides.length + '%'; //установка обертке carousel-slides ширины в зависимоcти от кол-ва слайдов(slides.length)
     slides.forEach(slide => {

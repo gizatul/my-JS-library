@@ -17,7 +17,6 @@ $.prototype.removeClass = function(...classNames) { //оператор ... - res
     }
     this[i].classList.remove(...classNames); //оператор spread - разворачивает классы
   }
-  
   return this;
 };
 
@@ -28,6 +27,5 @@ $.prototype.toggleClass = function(classNames) { //оператор ... - rest -
       }
       this[i].classList.toggle(classNames); //оператор spread - разворачивает классы
     }
-
   return this;
 };
